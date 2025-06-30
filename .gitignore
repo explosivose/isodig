@@ -1,0 +1,4 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+isometric-sandbox-32x32/.DS_Store
