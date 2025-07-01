@@ -9,17 +9,15 @@
   - add block to layer
   - remove block from layer
 
-
 ## voxel notes
 
 Query return types:
-  
-  - 3D arrays
-  
+
+- 3D arrays
 
 Queries might look like:
-  
-  - get_cube(pos, size)
+
+- get_cube(pos, size)
 
 ### 3D array
 
@@ -46,7 +44,9 @@ Where there are several views that each manage their TileMapLayers. The World no
 
 ### Horizontal slice
 
-We see a layer and it's surrounds. There's a quick UI for going up or down to neighbouring layers. It could be clipped to a square, beyond which the vertical faces could be seen (like the edge of a RCT map). The view square could have a UI for changing the size.
+We see a layer and it's surrounds. There's a quick UI for going up or down to neighboring layers. It could be clipped to a square, beyond which the vertical faces could be seen (like the edge of a RCT map). The view square could have a UI for changing the size.
+
+There could also be a transparent preview for routes entering neighboring layers.
 
 ### Vertical corner slice
 
@@ -54,6 +54,12 @@ Like taking a quarter of a layer cake and seeing all the layers inside. This vie
 
 ### X-ray cube
 
-Similar to the vertical corner slice by way of having  solid a xyz back plane. The difference is that in the volume of the fore-cube we also show the intersecting tunnels. 
+Similar to the vertical corner slice by way of having solid a xyz back plane. The difference is that in the volume of the fore-cube we also show the intersecting tunnels.
 
 For example, showing all floors and walls with transparency within the volume.
+
+### Reachable cubes
+
+Show all cubes that I can walk to (if I were spiderman) inside a bounding box.
+
+For occluding walls we could draw a transparent sprite of just the wall touching the empty cube.
