@@ -1,5 +1,16 @@
 # isometric digging
 
+## TODOs for poc
+
+- add a view class which manage layer visibility
+  - based on a center point
+- add dig mode and fill mode
+- add some dig and fill audio
+- smooth movement
+- add some 'budge' when cant move
+- animate the character
+- build for web, publish online
+
 ## first poc goals
 
 - view controls
@@ -8,6 +19,13 @@
 - edit controls
   - add block to layer
   - remove block from layer
+
+## next poc goals
+
+- npc that moves from A to B
+- npc that digs straight down to near-bottom, then digs a NxN cave
+  - will redig if player fills it in
+- build & publish
 
 ## voxel notes
 
