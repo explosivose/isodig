@@ -4,6 +4,16 @@
 
 - add a view class which manage layer visibility
   - based on a center point
+  - add new tiles for only visible faces of cube
+    - selected based on z+1, y+1, x+1 neighbors
+    -     ZYX
+    - ABC 000
+    - AB  00x
+    - AC  0x0
+    - BC  x00
+    - B   x0x
+    - C   0xx
+    - A   x00
 - add dig mode and fill mode
 - add some dig and fill audio
 - smooth movement

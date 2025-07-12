@@ -1,6 +1,6 @@
-class_name WorldLayer
+# responsible for rendering a single layer of the world
 
-extends TileMapLayer
+class_name WorldLayer extends TileMapLayer
 
 const CUBE_GREEN = Vector2i(0, 0)
 const CUBE_GRAY = Vector2i(0, 3)
@@ -12,13 +12,14 @@ func set_depth(new_depth: int, max_depth: int) -> void:
   var color = Color(randf(), randf(), randf())
   var layer_color = color.lerp(color.darkened(0.7), 1 - float(depth) / max_depth)
   modulate = layer_color
-  
+ 
 func set_transparent(transparent: bool) -> void:
-  modulate.a = 0.5 if transparent else 1
+  modulate.a = 0.5 if transparent else 1.0
 
 
 func paint_cell(coords: Vector2i):
   set_cell(coords, 0, CUBE_GREEN)
+
 
 # func _input(event: InputEvent) -> void:
 #   if event is InputEventMouseMotion:

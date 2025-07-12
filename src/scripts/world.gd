@@ -1,14 +1,15 @@
+# responsible for queries, mutations and side effects of world data
+
 extends Node2D
 
-const TILE_VERTICAL = 16
+const WorldView = preload("res://src/scripts/world_view.gd")
 const SIZE = 16
 var X = SIZE
 var Y = SIZE
 var Z = 3
 
 var world_data: PackedInt64Array
-const WorldLayerScene = preload("res://src/scenes/world_layer.tscn")
-var layers: Array
+var world_view: WorldView
 const PlayerScene = preload("res://src/scenes/player.tscn")
 var player
 
@@ -28,20 +29,18 @@ func _ready():
         var index = _get_index(x, y, z)
         world_data[index] = 1 if randf() > 0.7 else 0
 
-  for z in range(Z):
-    var layer = WorldLayerScene.instantiate()
-    layer.name = "layer_%d" % z
-    layer.position = Vector2(0, -z * TILE_VERTICAL)
-    layer.set_depth(z, Z)
-    for x in range(X):
-      for y in range(Y):
+  world_view = WorldView.new(Vector3i(X, Y, Z))
+  add_child(world_view)
+  
+  for x in range(X):
+    for y in range(Y):
+      for z in range(Z):
         var index = _get_index(x, y, z)
         var value = world_data[index]
-        if (value == 1):
-          layer.paint_cell(Vector2i(x, y))
-    layers.append(layer)
-    add_child(layer)
-  layers[2].add_child(player)
+        if value == 1:
+          world_view.paint_cell(Vector3i(x, y, z))
+  
+  world_view.get_layer(Z - 1).add_child(player)
 
 func _get_index(x: int, y: int, z: int) -> int:
   var index = x + y * X + z * X * Y
@@ -55,12 +54,11 @@ func _get_index_for_vector(pos: Vector3i) -> int:
   return _get_index(pos.x, pos.y, pos.z)
 
 func _on_player_try_move(p: Player, pos: Vector3i, dir: Vector2i) -> void:
-  # check if player can move
   print('try move')
   var new_pos = pos + Vector3i(dir.x, dir.y, 0)
   if is_clear(new_pos):
     p.world_position = new_pos
-    p.position = layers[pos.z].map_to_local(Vector2i(new_pos.x, new_pos.y))
+    p.position = world_view.map_to_local(new_pos)
   else:
     print('cannot move')
   
@@ -69,26 +67,21 @@ func _on_player_try_climb(p: Player, pos: Vector3i) -> void:
   var above = pos + Vector3i.BACK
   if can_climb_to(above):
     p.world_position = above
-    layers[pos.z].remove_child(p)
-    layers[above.z].add_child(p)
-    layers[above.z].set_transparent(false)
-    p.position = layers[above.z].map_to_local(Vector2i(above.x, above.y))
+    world_view.update_view_point(Vector3i(above))
+    world_view.add_child_to_layer(above.z, p)
+    p.position = world_view.map_to_local(above)
   else:
     print('cannot climb')
-  
   
 func _on_player_try_descend(p: Player, pos: Vector3i) -> void:
   print('try descend')
   var below = pos + Vector3i.FORWARD
   if can_climb_to(below):
     p.world_position = below
-    layers[pos.z].remove_child(p)
-    layers[pos.z].set_transparent(true)
-    layers[below.z].add_child(p)
-    p.position = layers[below.z].map_to_local(Vector2i(below.x, below.y))
+    world_view.update_view_point(Vector3i(below))
+    world_view.add_child_to_layer(below.z, p)
   else:
     print('cannot descend')
-
 
 func set_block(pos: Vector3i, value: int) -> void:
   var index = _get_index_for_vector(pos)
