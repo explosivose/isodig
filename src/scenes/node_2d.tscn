@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=4 uid="uid://c0ujyrpiln4sb"]
+[gd_scene load_steps=6 format=4 uid="uid://cadhfbyg7yjtx"]
 
 [ext_resource type="TileSet" uid="uid://dsmnmrl1af5i7" path="res://assets/tilesets/isometric-sandbox-tileset.tres" id="1_wtcfe"]
 [ext_resource type="Script" uid="uid://dx61r8vda2hbq" path="res://src/scripts/world.gd" id="2_0e48y"]

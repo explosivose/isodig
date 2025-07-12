@@ -1,7 +1,7 @@
 [gd_scene load_steps=100 format=3 uid="uid://ngokegebgyb7"]
 
-[ext_resource type="Script" uid="uid://c6tx1o0bsks8n" path="res://player.gd" id="1_onrkg"]
-[ext_resource type="Texture2D" uid="uid://podtdupje32x" path="res://Mage/Mage-Sheet.png" id="2_i3pqv"]
+[ext_resource type="Script" uid="uid://c6tx1o0bsks8n" path="res://src/scripts/player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://podtdupje32x" path="res://assets/sprites/Mage/Mage-Sheet.png" id="2_i3pqv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qgxp6"]
 atlas = ExtResource("2_i3pqv")

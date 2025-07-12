@@ -7,9 +7,9 @@ var Y = SIZE
 var Z = 3
 
 var world_data: PackedInt64Array
-const WorldLayerScene = preload("res://world_layer.tscn")
+const WorldLayerScene = preload("res://src/scenes/world_layer.tscn")
 var layers: Array
-const PlayerScene = preload("res://player.tscn")
+const PlayerScene = preload("res://src/scenes/player.tscn")
 var player
 
 func _ready():
@@ -63,7 +63,7 @@ func _on_player_try_move(p: Player, pos: Vector3i, dir: Vector2i) -> void:
     p.position = layers[pos.z].map_to_local(Vector2i(new_pos.x, new_pos.y))
   else:
     print('cannot move')
-    
+  
 func _on_player_try_climb(p: Player, pos: Vector3i) -> void:
   print('try climb')
   var above = pos + Vector3i.BACK
@@ -75,7 +75,7 @@ func _on_player_try_climb(p: Player, pos: Vector3i) -> void:
     p.position = layers[above.z].map_to_local(Vector2i(above.x, above.y))
   else:
     print('cannot climb')
-    
+  
   
 func _on_player_try_descend(p: Player, pos: Vector3i) -> void:
   print('try descend')
