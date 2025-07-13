@@ -18,6 +18,10 @@ func _init(world_size: Vector3i):
     layers.append(layer)
     add_child(layer)
 
+func autopaint_cell(pos: Vector3i, value: int, neighbor_values: PackedInt64Array) -> void:
+  if pos.z >= 0 and pos.z < layers.size():
+    layers[pos.z].autopaint_cell(Vector2i(pos.x, pos.y), value, neighbor_values)
+
 func paint_cell(pos: Vector3i) -> void:
   if pos.z >= 0 and pos.z < layers.size():
     layers[pos.z].paint_cell(Vector2i(pos.x, pos.y))
@@ -50,16 +54,19 @@ func update_view_point(new_view_point: Vector3i) -> void:
 
 func update_view():
   for z in range(layers.size()):
-    var layer = layers[z]
+    var layer: WorldLayer = layers[z]
     if z > view_point.z + 1:
-      layer.set_visible(false)
+      layer.self_modulate.a = 0.02
+      print("Layer %d is hidden" % z)
     elif z == view_point.z + 1:
-      layer.set_visible(true)
-      layer.modulate.a = 0.2
+      print("Layer %d is hidden" % z)
+      layer.self_modulate.a = 0.2
+      print("Layer %d is semi-transparent" % z)
     elif z == view_point.z:
-      layer.set_visible(true)
-      layer.modulate.a = 0.5
+      print("Layer %d is hidden" % z)
+      layer.self_modulate.a = 0.9
+      print("Layer %d is fully visible" % z)
     else:
-      layer.set_visible(true)
-      layer.set_transparent(false)
+      layer.self_modulate.a = 1.0
+      print("Layer %d is visible" % z)
     

@@ -2,11 +2,10 @@
 
 extends Node2D
 
-const WorldView = preload("res://src/scripts/world_view.gd")
 const SIZE = 16
 var X = SIZE
 var Y = SIZE
-var Z = 3
+var Z = 6
 
 var world_data: PackedInt64Array
 var world_view: WorldView
@@ -39,6 +38,7 @@ func _ready():
         var value = world_data[index]
         if value == 1:
           world_view.paint_cell(Vector3i(x, y, z))
+        # world_view.autopaint_cell(Vector3i(x, y, z), value, get_neighbor_values(Vector3i(x, y, z)))
   
   world_view.get_layer(Z - 1).add_child(player)
 
@@ -97,11 +97,30 @@ func is_block(pos: Vector3i) -> bool:
 
 func get_neighbors_on_layer(pos: Vector3i) -> Array:
   var neighbors = []
-  for x in range(-1, 2):
-    for y in range(-1, 2):
-      if x == 0 and y == 0:
-        continue
-      neighbors.append(pos + Vector3i(x, y, 0))
+  var directions = [
+    Vector3i(1, 0, 0),
+    Vector3i(-1, 0, 0),
+    Vector3i(0, 1, 0),
+    Vector3i(0, -1, 0),
+    #Vector3i(0, 0, 1),
+    #Vector3i(0, 0, -1)
+  ]
+  for dir in directions:
+    neighbors.append(pos + dir)
+  return neighbors
+
+func get_neighbor_values(pos: Vector3i) -> PackedInt64Array:
+  var neighbors: PackedInt64Array = PackedInt64Array()
+  var directions: Array[Vector3i] = [
+    Vector3i(1, 0, 0),
+    Vector3i(-1, 0, 0),
+    Vector3i(0, 1, 0),
+    Vector3i(0, -1, 0),
+    Vector3i(0, 0, 1),
+    Vector3i(0, 0, -1)
+  ]
+  for dir in directions:
+    neighbors.append(world_data[_get_index_for_vector(pos + dir)])
   return neighbors
 
 func can_climb_to(pos: Vector3i) -> bool:
@@ -115,3 +134,5 @@ func can_climb_to(pos: Vector3i) -> bool:
   if neighbors.any(func(n): return is_block(n)):
     return true
   return false
+
+   

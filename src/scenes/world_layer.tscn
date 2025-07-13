@@ -4,9 +4,7 @@
 [ext_resource type="Script" uid="uid://cgfs3niy64x51" path="res://src/scripts/world_layer.gd" id="2_gk7ml"]
 
 [node name="WorldLayer2" type="TileMapLayer"]
-modulate = Color(1, 0.756863, 1, 1)
 y_sort_enabled = true
-tile_map_data = PackedByteArray(0, 0, 255, 255, 255, 255, 0, 0, 4, 0, 0, 0, 0, 0)
 tile_set = ExtResource("1_0ugm7")
 script = ExtResource("2_gk7ml")
 metadata/_custom_type_script = "uid://cgfs3niy64x51"
