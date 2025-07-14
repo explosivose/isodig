@@ -18,9 +18,10 @@ func _init(world_size: Vector3i):
     layers.append(layer)
     add_child(layer)
 
-func autopaint_cell(pos: Vector3i, value: int, neighbor_values: PackedInt64Array) -> void:
+func autopaint_cell(pos: Vector3i, value: int, neighbor_values: Array[int]) -> void:
   if pos.z >= 0 and pos.z < layers.size():
-    layers[pos.z].autopaint_cell(Vector2i(pos.x, pos.y), value, neighbor_values)
+    var layer: WorldLayer = layers[pos.z]
+    layer.autopaint_cell(Vector2i(pos.x, pos.y), value, neighbor_values)
 
 func paint_cell(pos: Vector3i) -> void:
   if pos.z >= 0 and pos.z < layers.size():

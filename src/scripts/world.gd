@@ -10,6 +10,7 @@ var Z = 6
 var world_data: PackedInt64Array
 var world_view: WorldView
 const PlayerScene = preload("res://src/scenes/player.tscn")
+
 var player
 
 func _ready():
@@ -36,9 +37,9 @@ func _ready():
       for z in range(Z):
         var index = _get_index(x, y, z)
         var value = world_data[index]
-        if value == 1:
-          world_view.paint_cell(Vector3i(x, y, z))
-        # world_view.autopaint_cell(Vector3i(x, y, z), value, get_neighbor_values(Vector3i(x, y, z)))
+        # if value == 1:
+        #   world_view.paint_cell(Vector3i(x, y, z))
+        world_view.autopaint_cell(Vector3i(x, y, z), value, get_neighbor_values(Vector3i(x, y, z)))
   
   world_view.get_layer(Z - 1).add_child(player)
 
@@ -109,8 +110,8 @@ func get_neighbors_on_layer(pos: Vector3i) -> Array:
     neighbors.append(pos + dir)
   return neighbors
 
-func get_neighbor_values(pos: Vector3i) -> PackedInt64Array:
-  var neighbors: PackedInt64Array = PackedInt64Array()
+func get_neighbor_values(pos: Vector3i) -> Array[int]:
+  var neighbors: Array[int] = [0, 0, 0, 0, 0, 0]
   var directions: Array[Vector3i] = [
     Vector3i(1, 0, 0),
     Vector3i(-1, 0, 0),
@@ -119,8 +120,14 @@ func get_neighbor_values(pos: Vector3i) -> PackedInt64Array:
     Vector3i(0, 0, 1),
     Vector3i(0, 0, -1)
   ]
-  for dir in directions:
-    neighbors.append(world_data[_get_index_for_vector(pos + dir)])
+  for i in range(directions.size()):
+    var dir = directions[i]
+    var neighbor_pos = pos + dir
+    if neighbor_pos.z >= 0 and neighbor_pos.z < Z:
+      var world_data_index = _get_index_for_vector(neighbor_pos)
+      neighbors[i] = world_data[world_data_index]
+    else:
+      neighbors[i] = 0  # Out of bounds, treat as empty
   return neighbors
 
 func can_climb_to(pos: Vector3i) -> bool:
