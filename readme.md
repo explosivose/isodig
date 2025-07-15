@@ -2,20 +2,16 @@
 
 ## TODOs for poc
 
-- add a view class which manage layer visibility
-  - based on a center point
-  - add new tiles for only visible faces of cube
-    - selected based on z+1, y+1, x+1 neighbors
-    -     ZYX
-    - ABC 000
-    - AB  00x
-    - AC  0x0
-    - BC  x00
-    - B   x0x
-    - C   0xx
-    - A   x00
-- add dig mode and fill mode
-- add some dig and fill audio
+- track player with camera
+- indicate climbable or descendable points
+  - for points within certain distance to player
+  - show an arrow sprite
+- add dig mode
+  - rotate player with mouse
+  - click to dig cube infront
+  - audio
+- add fill mode
+  - as dig mode but fill instead
 - smooth movement
 - add some 'budge' when cant move
 - animate the character
