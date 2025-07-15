@@ -35,10 +35,16 @@ const TILE_EFG = Vector2i(1, 2)
 # const TILE_C = Vector2i(2, 1)
 # const TILE_EFG = Vector2i(1, 0)
 var depth = 0
-  
-static var color = Color(randf(), randf(), randf())
+
+# a random light color
+static var color_a = Color(randf_range(0.5, 1.0), randf_range(0.5, 1.0), randf_range(0.5, 1.0))
+# the complementary of color_a
+static var color_b = Color.from_hsv(fmod(color_a.h + 0.5, 1.0), color_a.s, color_a.v)
+
 func set_depth(new_depth: int, max_depth: int) -> void:
   depth = new_depth
+  # alternatate between two colors based on depth
+  var color = color_a if depth % 2 == 0 else color_b
   var layer_color = color.lerp(color.darkened(0.35), 1 - float(depth) / max_depth)
   self_modulate = layer_color
  

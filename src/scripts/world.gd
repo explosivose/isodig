@@ -2,10 +2,10 @@
 
 extends Node2D
 
-const SIZE = 16
+const SIZE = 32
 var X = SIZE
 var Y = SIZE
-var Z = 6
+var Z = 16
 
 var world_data: PackedInt64Array
 var world_view: WorldView
@@ -23,11 +23,14 @@ func _ready():
   world_data = PackedInt64Array()
   world_data.resize(X * Y * Z)
   world_data.fill(0)
+  var noise = FastNoiseLite.new()
+  noise.seed = randi()
   for x in range(X):
     for y in range(Y):
       for z in range(Z):
         var index = _get_index(x, y, z)
-        world_data[index] = 1 if randf() > 0.7 else 0
+        var value = noise.get_noise_3d(float(x) * 16, float(y) * 16, float(z) * 8)
+        world_data[index] = 1 if value > -0.05 else 0
 
   world_view = WorldView.new(Vector3i(X, Y, Z))
   add_child(world_view)
