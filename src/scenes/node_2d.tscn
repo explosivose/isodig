@@ -31,5 +31,6 @@ y_sort_enabled = true
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("2_0e48y")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("4_0hol4")
+target = NodePath("../TileMap/Player")

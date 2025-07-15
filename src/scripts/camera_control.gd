@@ -6,19 +6,21 @@ const MIN_ZOOM = Vector2(0.5, 0.5)
 const MAX_ZOOM = Vector2(1.5, 1.5)
 const ZOOM_STEP = Vector2(0.25, 0.25)
 
+# the target for the camera to follow (editable in the editor)
+@export var target: Node2D
+
+func _ready() -> void:
+  if target:
+    position = target.position
+  zoom = Vector2(1, 1)
+  make_current()
 
 func _physics_process(delta: float) -> void:
-  pass
-  #if Input.is_action_pressed("ui_left"):
-  #  position.x -= MOVE_SPEED * delta
-  #if Input.is_action_pressed("ui_right"):
-  #  position.x += MOVE_SPEED * delta
-  #if Input.is_action_pressed("ui_up"):
-  #  position.y -= MOVE_SPEED * delta
-  #if Input.is_action_pressed("ui_down"):
-  #  position.y += MOVE_SPEED * delta
+  if target:
+    position = lerp(position, target.position, 0.1)
 
 func _input(event: InputEvent) -> void:
+  make_current()
   if event.is_action_pressed("zoom_in"):
     zoom += ZOOM_STEP
   elif event.is_action_pressed("zoom_out"):
