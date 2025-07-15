@@ -29,8 +29,13 @@ func _ready():
     for y in range(Y):
       for z in range(Z):
         var index = _get_index(x, y, z)
-        var value = noise.get_noise_3d(float(x) * 16, float(y) * 16, float(z) * 8)
-        world_data[index] = 1 if value > -0.05 else 0
+        if (z == Z - 1):
+          # top layer 
+          world_data[index] = 0
+        else:
+          # generate noise for the rest of the layers
+          var value = noise.get_noise_3d(float(x) * 16, float(y) * 16, float(z) * 8)
+          world_data[index] = 1 if value > -0.05 else 0
 
   world_view = WorldView.new(Vector3i(X, Y, Z))
   add_child(world_view)
