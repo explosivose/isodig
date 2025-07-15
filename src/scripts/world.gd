@@ -10,6 +10,7 @@ var Z = 6
 var world_data: PackedInt64Array
 var world_view: WorldView
 const PlayerScene = preload("res://src/scenes/player.tscn")
+const CameraScene = preload("res://src/scenes/follow_camera.tscn")
 
 var player
 
@@ -19,6 +20,11 @@ func _ready():
   player.try_move.connect(_on_player_try_move)
   player.try_climb.connect(_on_player_try_climb)
   player.try_descend.connect(_on_player_try_descend)
+
+  var camera = CameraScene.instantiate()
+  camera.target = player
+  camera.make_current()
+  get_tree().root.add_child.call_deferred(camera)
 
   world_data = PackedInt64Array()
   world_data.resize(X * Y * Z)
@@ -127,7 +133,7 @@ func get_neighbor_values(pos: Vector3i) -> Array[int]:
       var world_data_index = _get_index_for_vector(neighbor_pos)
       neighbors[i] = world_data[world_data_index]
     else:
-      neighbors[i] = 0  # Out of bounds, treat as empty
+      neighbors[i] = 0 # Out of bounds, treat as empty
   return neighbors
 
 func can_climb_to(pos: Vector3i) -> bool:
@@ -141,5 +147,3 @@ func can_climb_to(pos: Vector3i) -> bool:
   if neighbors.any(func(n): return is_block(n)):
     return true
   return false
-
-   

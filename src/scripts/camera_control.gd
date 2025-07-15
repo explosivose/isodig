@@ -6,17 +6,12 @@ const MIN_ZOOM = Vector2(0.5, 0.5)
 const MAX_ZOOM = Vector2(1.5, 1.5)
 const ZOOM_STEP = Vector2(0.25, 0.25)
 
+@export var target: Player
 
 func _physics_process(delta: float) -> void:
-  pass
-  #if Input.is_action_pressed("ui_left"):
-  #  position.x -= MOVE_SPEED * delta
-  #if Input.is_action_pressed("ui_right"):
-  #  position.x += MOVE_SPEED * delta
-  #if Input.is_action_pressed("ui_up"):
-  #  position.y -= MOVE_SPEED * delta
-  #if Input.is_action_pressed("ui_down"):
-  #  position.y += MOVE_SPEED * delta
+  var move_to = target.position
+  move_to.y -= -2 * 16 + target.world_position.z * 16
+  position = lerp(position, move_to, 0.1)
 
 func _input(event: InputEvent) -> void:
   if event.is_action_pressed("zoom_in"):
