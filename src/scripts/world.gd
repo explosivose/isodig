@@ -1,6 +1,6 @@
 # responsible for queries, mutations and side effects of world data
 
-extends Node2D
+class_name World extends Node2D
 
 const SIZE = 32
 var X = SIZE
@@ -9,16 +9,16 @@ var Z = 16
 
 var world_data: PackedInt64Array
 var world_view: WorldView
-const PlayerScene = preload("res://src/scenes/player.tscn")
+var nav: WorldNav
 
-var player
+var player: Player
 
 func _ready():
-  player = PlayerScene.instantiate()
-  player.place_in_world(Vector3i(0, 0, Z - 1))
-  player.try_move.connect(_on_player_try_move)
-  player.try_climb.connect(_on_player_try_climb)
-  player.try_descend.connect(_on_player_try_descend)
+  nav = WorldNav.new(self)
+  player = Player.create_player(Vector3i(0, 0, Z - 1))
+  player.try_move.connect(nav._try_move)
+  player.try_climb.connect(nav._try_climb)
+  player.try_descend.connect(nav._try_descend)
 
   world_data = PackedInt64Array()
   world_data.resize(X * Y * Z)
@@ -61,36 +61,6 @@ func _get_index(x: int, y: int, z: int) -> int:
 
 func _get_index_for_vector(pos: Vector3i) -> int:
   return _get_index(pos.x, pos.y, pos.z)
-
-func _on_player_try_move(p: Player, pos: Vector3i, dir: Vector2i) -> void:
-  print('try move')
-  var new_pos = pos + Vector3i(dir.x, dir.y, 0)
-  if is_clear(new_pos):
-    p.world_position = new_pos
-    p.position = world_view.map_to_local(new_pos)
-  else:
-    print('cannot move')
-  
-func _on_player_try_climb(p: Player, pos: Vector3i) -> void:
-  print('try climb')
-  var above = pos + Vector3i.BACK
-  if can_climb_to(above):
-    p.world_position = above
-    world_view.update_view_point(Vector3i(above))
-    world_view.add_child_to_layer(above.z, p)
-    p.position = world_view.map_to_local(above)
-  else:
-    print('cannot climb')
-  
-func _on_player_try_descend(p: Player, pos: Vector3i) -> void:
-  print('try descend')
-  var below = pos + Vector3i.FORWARD
-  if can_climb_to(below):
-    p.world_position = below
-    world_view.update_view_point(Vector3i(below))
-    world_view.add_child_to_layer(below.z, p)
-  else:
-    print('cannot descend')
 
 func set_block(pos: Vector3i, value: int) -> void:
   var index = _get_index_for_vector(pos)
@@ -137,17 +107,3 @@ func get_neighbor_values(pos: Vector3i) -> Array[int]:
     else:
       neighbors[i] = 0  # Out of bounds, treat as empty
   return neighbors
-
-func can_climb_to(pos: Vector3i) -> bool:
-  if pos.z >= Z or pos.z < 0:
-    return false
-  # check if pos is clear
-  if not is_clear(pos):
-    return false
-  # and if any direct neighbor is a block
-  var neighbors = get_neighbors_on_layer(pos)
-  if neighbors.any(func(n): return is_block(n)):
-    return true
-  return false
-
-   
