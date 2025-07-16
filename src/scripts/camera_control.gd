@@ -1,4 +1,10 @@
-extends Camera2D
+class_name CameraControl extends Camera2D
+
+const CAMERA_SCENE = preload("res://src/scenes/follow_camera.tscn")
+static func create_camera(tgt: Player) -> CameraControl:
+  var camera: CameraControl = CAMERA_SCENE.instantiate()
+  camera.target = tgt
+  return camera
 
 const MOVE_SPEED = 100
 
@@ -6,18 +12,20 @@ const MIN_ZOOM = Vector2(0.5, 0.5)
 const MAX_ZOOM = Vector2(1.5, 1.5)
 const ZOOM_STEP = Vector2(0.25, 0.25)
 
-# the target for the camera to follow (editable in the editor)
-@export var target: Node2D
+var target: Player
 
 func _ready() -> void:
-  if target:
-    position = target.position
-  zoom = Vector2(1, 1)
   make_current()
+  if not target:
+    print("CameraControl: No target set!")
+    return
 
 func _physics_process(delta: float) -> void:
-  if target:
-    position = lerp(position, target.position, 0.1)
+  if not target:
+    return
+  var move_to = target.position
+  move_to.y -= -2 * 16 + target.world_position.z * 16
+  position = lerp(position, move_to, 0.1)
 
 func _input(event: InputEvent) -> void:
   make_current()

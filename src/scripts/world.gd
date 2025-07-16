@@ -11,14 +11,14 @@ var world_data: PackedInt64Array
 var world_view: WorldView
 var nav: WorldNav
 
-var player: Player
 
 func _ready():
   nav = WorldNav.new(self)
-  player = Player.create_player(Vector3i(0, 0, Z - 1))
+  var player = Player.create_player(Vector3i(0, 0, Z - 1))
   player.try_move.connect(nav._try_move)
   player.try_climb.connect(nav._try_climb)
   player.try_descend.connect(nav._try_descend)
+
 
   world_data = PackedInt64Array()
   world_data.resize(X * Y * Z)
@@ -50,6 +50,8 @@ func _ready():
         world_view.autopaint_cell(Vector3i(x, y, z), value, get_neighbor_values(Vector3i(x, y, z)))
   
   world_view.get_layer(Z - 1).add_child(player)
+  var camera = CameraControl.create_camera(player)
+  get_tree().root.add_child.call_deferred(camera)
 
 func _get_index(x: int, y: int, z: int) -> int:
   var index = x + y * X + z * X * Y
@@ -105,5 +107,5 @@ func get_neighbor_values(pos: Vector3i) -> Array[int]:
       var world_data_index = _get_index_for_vector(neighbor_pos)
       neighbors[i] = world_data[world_data_index]
     else:
-      neighbors[i] = 0  # Out of bounds, treat as empty
+      neighbors[i] = 0 # Out of bounds, treat as empty
   return neighbors
