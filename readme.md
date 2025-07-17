@@ -2,10 +2,6 @@
 
 ## TODOs for poc
 
-- track player with camera
-- indicate climbable or descendable points
-  - for points within certain distance to player
-  - show an arrow sprite
 - add dig mode
   - rotate player with mouse
   - click to dig cube infront
@@ -15,6 +11,10 @@
 - smooth movement
 - add some 'budge' when cant move
 - animate the character
+- fixme:
+  - some local block configurations do not have a matching tile
+  - can climb and can descend logic seems inconsistent
+  - some hints dont make sense
 - build for web, publish online
 
 ## first poc goals
