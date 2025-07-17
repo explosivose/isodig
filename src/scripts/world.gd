@@ -13,11 +13,8 @@ var nav: WorldNav
 
 
 func _ready():
-  nav = WorldNav.new(self)
   var player = Player.create_player(Vector3i(0, 0, Z - 1))
-  player.try_move.connect(nav._try_move)
-  player.try_climb.connect(nav._try_climb)
-  player.try_descend.connect(nav._try_descend)
+  nav = WorldNav.new(self, player)
 
 
   world_data = PackedInt64Array()

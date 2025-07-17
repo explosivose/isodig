@@ -11,6 +11,7 @@ static func create_player(pos: Vector3i) -> Player:
 signal try_move(player: Player, position: Vector3i, direction: Vector2i)
 signal try_climb(player: Player, position: Vector3i)
 signal try_descend(player: Player, position: Vector3i)
+signal has_moved(player: Player, position: Vector3i)
 
 var world_position: Vector3i
 
