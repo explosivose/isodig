@@ -23,6 +23,7 @@ const TILE_AB = Vector2i(0, 3)
 const TILE_AC = Vector2i(3, 2)
 const TILE_BC = Vector2i(1, 3)
 const TILE_A = Vector2i(2, 2)
+const TILE_AX = Vector2i(2, 4)
 const TILE_B = Vector2i(3, 3)
 const TILE_C = Vector2i(2, 3)
 const TILE_EFG = Vector2i(1, 2)
@@ -62,6 +63,9 @@ func autopaint_cell(coords: Vector2i, value: int, neighbor_values: Array[int]) -
       [var x, _, var y, _, var z, _] when x != 0 and y != 0 and z == 0:
         print("match A  ", coords, value, neighbor_values, x, y, z)
         paint_cell(coords, TILE_A)
+      [var x, _, var y, _, var z, _] when x != 0 and y != 0 and z != 0:
+        print("match AX  ", coords, value, neighbor_values, x, y, z)
+        paint_cell(coords, TILE_AX)
       [var x, _, var y, _, var z, _] when x != 0 and y == 0 and z != 0:
         print("match B  ", coords, value, neighbor_values, x, y, z)
         paint_cell(coords, TILE_B)

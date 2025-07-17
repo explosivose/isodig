@@ -1,4 +1,6 @@
-# responsible for queries, mutations and side effects of world data
+"""
+responsible for queries, mutations and side effects of world data
+"""
 
 class_name World extends Node2D
 

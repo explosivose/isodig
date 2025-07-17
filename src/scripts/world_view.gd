@@ -1,4 +1,6 @@
-# responsible for orchestrating render WorldLayers for a cohesive view
+"""
+responsible for orchestrating render WorldLayers for a cohesive view
+"""
 
 class_name WorldView extends Node2D
 
