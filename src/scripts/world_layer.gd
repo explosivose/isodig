@@ -61,31 +61,23 @@ func autopaint_cell(coords: Vector2i, value: int, neighbor_values: Array[int]) -
   if value != 0:
     match neighbor_values:
       [var x, _, var y, _, var z, _] when x != 0 and y != 0 and z == 0:
-        print("match A  ", coords, value, neighbor_values, x, y, z)
         paint_cell(coords, TILE_A)
       [var x, _, var y, _, var z, _] when x != 0 and y != 0 and z != 0:
-        print("match AX  ", coords, value, neighbor_values, x, y, z)
         paint_cell(coords, TILE_AX)
       [var x, _, var y, _, var z, _] when x != 0 and y == 0 and z != 0:
-        print("match B  ", coords, value, neighbor_values, x, y, z)
         paint_cell(coords, TILE_B)
       [var x, _, var y, _, var z, _] when x == 0 and y != 0 and z != 0:
-        print("match C  ", coords, value, neighbor_values,  x, y, z)
         paint_cell(coords, TILE_C)
       [var x, _, var y, _, var z, _] when x != 0 and y == 0 and z == 0:
-        print("match AB ", coords, value, neighbor_values, x, y, z)
         paint_cell(coords, TILE_AB)
       [var x, _, var y, _, var z, _] when x == 0 and y != 0 and z == 0:
-        print("match AC ", coords, value, neighbor_values, x, y, z)
         paint_cell(coords, TILE_AC)
       [var x, _, var y, _, var z, _] when x == 0 and y == 0 and z != 0:
-        print("match BC ", coords, value, neighbor_values, x, y, z)
         paint_cell(coords, TILE_BC)
       [var x, _, var y, _, var z, _] when x == 0 and y == 0 and z == 0:
-        print("match ABC", coords, value, neighbor_values, x, y, z)
         paint_cell(coords, TILE_ABC)
       _:
-        print("no match", coords, value, neighbor_values)
+        print_debug("no match", coords, value, neighbor_values)
         paint_cell(coords)
 
 func paint_cell(coords: Vector2i, tile = TILE_ABC) -> void:
