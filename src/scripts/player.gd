@@ -1,4 +1,3 @@
-
 class_name Player extends Node2D
 
 const PLAYER_SCENE = preload("res://src/scenes/player.tscn")
@@ -12,8 +11,11 @@ signal try_move(player: Player, position: Vector3i, direction: Vector2i)
 signal try_climb(player: Player, position: Vector3i)
 signal try_descend(player: Player, position: Vector3i)
 signal has_moved(player: Player, position: Vector3i)
+signal try_dig(player: Player, position: Vector3i)
+signal try_fill(player: Player, position: Vector3i)
 
 var world_position: Vector3i
+var _look_direction: Vector3i = Vector3i.ZERO
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 var current_animation_prefix = "idle"
 
@@ -31,25 +33,33 @@ func _process(_delta: float) -> void:
     angle += 360
   
   # Map angle to 8 directions aligned with isometric grid
-  var direction = ""
+  var anim_direction = ""
   if angle >= -22.5 and angle < 22.5:
-    direction = "ne"
+    _look_direction = Vector3i(0, -1, 0)
+    anim_direction = "ne"
   elif angle >= 22.5 and angle < 67.5:
-    direction = "e"
+    _look_direction = Vector3i(1, -1, 0)
+    anim_direction = "e"
   elif angle >= 67.5 and angle < 112.5:
-    direction = "se"
+    _look_direction = Vector3i(1, 0, 0)
+    anim_direction = "se"
   elif angle >= 112.5 and angle < 157.5:
-    direction = "s"
+    _look_direction = Vector3i(1, 1, 0)
+    anim_direction = "s"
   elif angle >= 157.5 or angle < -157.5:
-    direction = "sw"
+    _look_direction = Vector3i(0, 1, 0)
+    anim_direction = "sw"
   elif angle >= -157.5 and angle < -112.5:
-    direction = "w"
+    _look_direction = Vector3i(-1, 1, 0)
+    anim_direction = "w"
   elif angle >= -112.5 and angle < -67.5:
-    direction = "nw"
-  else:  # angle >= -67.5 and angle < -22.5
-    direction = "n"
+    _look_direction = Vector3i(-1, 0, 0)
+    anim_direction = "nw"
+  else: # angle >= -67.5 and angle < -22.5
+    _look_direction = Vector3i(-1, -1, 0)
+    anim_direction = "n"
     
-  sprite.play(current_animation_prefix + "_" + direction)
+  sprite.play(current_animation_prefix + "_" + anim_direction)
 
 func _input(event: InputEvent) -> void:
   var move_intent = Vector2i.ZERO;
@@ -65,6 +75,10 @@ func _input(event: InputEvent) -> void:
     try_descend.emit(self)
   elif event.is_action_pressed("climb"):
     try_climb.emit(self)
+  elif event.is_action_pressed("dig"):
+    try_dig.emit(world_position + _look_direction)
+  elif event.is_action_pressed("fill"):
+    try_fill.emit(world_position + _look_direction)
 
   if move_intent != Vector2i.ZERO:
     print('move_intent', move_intent)

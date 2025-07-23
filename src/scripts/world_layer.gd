@@ -58,7 +58,10 @@ func set_transparent(transparent: bool) -> void:
 # expects values in this order: [+X,-X,+Y,-Y,+Z,-Z]
 # TODO test this, then write automated tests
 func autopaint_cell(coords: Vector2i, value: int, neighbor_values: Array[int]) -> void:
-  if value != 0:
+  if value == 0:
+    # Clear the cell when digging
+    erase_cell(coords)
+  else:
     match neighbor_values:
       [var x, _, var y, _, var z, _] when x != 0 and y != 0 and z == 0:
         paint_cell(coords, TILE_A)

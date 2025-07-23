@@ -4,19 +4,21 @@ responsible for queries, mutations and side effects of world data
 
 class_name World extends Node2D
 
-const SIZE = 32
+const SIZE = 64
 var X = SIZE
 var Y = SIZE
-var Z = 16
+var Z = 64
 
 var world_data: PackedInt64Array
 var world_view: WorldView
 var nav: WorldNav
-
+var edit: WorldEdit
 
 func _ready():
   var player = Player.create_player(Vector3i(0, 0, Z - 1))
+  player.add_to_group("player")
   nav = WorldNav.new(self, player)
+  edit = WorldEdit.new(self, player)
 
 
   world_data = PackedInt64Array()
@@ -51,6 +53,7 @@ func _ready():
   world_view.get_layer(Z - 1).add_child(player)
   var camera = CameraControl.create_camera(player)
   get_tree().root.add_child.call_deferred(camera)
+  add_child(edit)
 
 func _get_index(x: int, y: int, z: int) -> int:
   var index = x + y * X + z * X * Y
