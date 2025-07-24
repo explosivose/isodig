@@ -3,16 +3,17 @@
 ## TODOs for poc
 
 - add dig mode
-  - rotate player with mouse
-  - click to dig cube infront
   - audio
+  - indicate block being dug (cracking sprite?)
 - add fill mode
   - as dig mode but fill instead
+- display player mode somewhere (dig, fill)
 - smooth movement
 - add some 'budge' when cant move
 - animate the character
 - fixme:
-  - some local block configurations do not have a matching tile
+  - after digging some tiles change color. maybe related to layer modulation?
+  - tiles not updated on adjacent layers when digging or filling
   - can climb and can descend logic seems inconsistent
   - some hints dont make sense
 - build for web, publish online
