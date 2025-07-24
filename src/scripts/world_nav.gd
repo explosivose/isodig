@@ -1,4 +1,4 @@
-class_name WorldNav 
+class_name WorldNav
 var _world: World
 var _hints: WorldHints = WorldHints.new()
 signal _has_moved_hints(nav: WorldNav, pos: Vector3i)
@@ -24,7 +24,7 @@ func can_climb_to(pos: Vector3i) -> bool:
     return true
   return false
 
-func _try_move(player: Player, pos: Vector3i, dir: Vector2i) -> void:
+func _try_move(player: Player, pos: Vector3i, dir: Vector3i) -> void:
   var new_pos = pos + Vector3i(dir.x, dir.y, 0)
   if _world.is_clear(new_pos):
     player.world_position = new_pos
