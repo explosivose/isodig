@@ -786,3 +786,13 @@ metadata/_custom_type_script = "uid://by5jm8efi5cv4"
 script = ExtResource("3_hwyk6")
 input_name = "ui_down"
 metadata/_custom_type_script = "uid://by5jm8efi5cv4"
+
+[node name="KeyHoldDescend" type="Timer" parent="."]
+script = ExtResource("3_hwyk6")
+input_name = "descend"
+metadata/_custom_type_script = "uid://by5jm8efi5cv4"
+
+[node name="KeyHoldClimb" type="Timer" parent="."]
+script = ExtResource("3_hwyk6")
+input_name = "climb"
+metadata/_custom_type_script = "uid://by5jm8efi5cv4"

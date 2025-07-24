@@ -9,6 +9,7 @@ func _init(world_node: World, player: Player):
 
 
 func _on_player_try_dig(position: Vector3i) -> void:
+  print('dig', position)
   _world.set_block(position, 0)
   # Update the _world view for the modified block and its neighbors
   _world.world_view.autopaint_cell(position, 0, _world.get_neighbor_values(position))

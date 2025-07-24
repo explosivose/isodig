@@ -29,18 +29,21 @@ var _mode = MODE.DIG
   $KeyHoldUp,
   $KeyHoldDown,
   $KeyHoldLeft,
-  $KeyHoldRight
+  $KeyHoldRight,
+  $KeyHoldDescend,
+  $KeyHoldClimb
 ]
 
 func _place_in_world(pos: Vector3i) -> void:
   world_position = pos
 
 func _ready():
-  _init_hold_inputs()
+  _init_hold_inputs.call_deferred()
 
 func _init_hold_inputs():
   for timer in _input_movement_hold_timers:
-    timer.held.connect(_on_hold_movement)
+    print(timer.is_inside_tree())
+    timer.hold_threshold.connect(_on_hold_movement)
 
 func player_moved(_arg, _arg2):
   for timer in _input_movement_hold_timers:
@@ -77,7 +80,7 @@ func _input(event: InputEvent) -> void:
     _current_animation_prefix = "idle"
 
 func _set_anim_direction(move_intent: Vector3i):
-  var anim_direction = ""
+  var anim_direction = "s"
   if move_intent.x > 0:
     anim_direction = "se"
   elif move_intent.x < 0:
@@ -90,6 +93,7 @@ func _set_anim_direction(move_intent: Vector3i):
   sprite.play(_current_animation_prefix + "_" + anim_direction)
 
 func _on_hold_movement(input_name: String):
+  print(input_name, 'on_hold_movement')
   var _intent = Vector3i.ZERO
   if input_name == "ui_left":
     _intent.x -= 1
@@ -101,9 +105,11 @@ func _on_hold_movement(input_name: String):
     _intent.y += 1
   elif input_name == "descend":
     _intent.z -= 1
+    _intent.y += 1
   elif input_name == "climb":
     _intent.z += 1
   if _mode == MODE.DIG:
+    print('emit dig', _intent)
     try_dig.emit(world_position + _intent)
   elif _mode == MODE.FILL:
     try_fill.emit(world_position)
