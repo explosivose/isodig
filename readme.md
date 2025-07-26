@@ -29,9 +29,18 @@
 
 ## next poc goals
 
-- npc that moves from A to B
-- npc that digs straight down to near-bottom, then digs a NxN cave
-  - will redig if player fills it in
+- player command mode
+  - mark blocks for digging or filling
+  - marking blocks: 
+    - "walk" a marker block around using move controls
+    - marker block can change size: 1x1, 2x2, 3x3
+    - spacebar to mark
+    - shift + spacebar to unmark
+- npc follows commands
+  - digs block marked for digging
+  - can carry single block. cannot dig while carrying
+  - deposits blocks in designated areas
+- pathfinding: simple a-star for now using godot AStar3D
 - build & publish
 
 ## voxel notes
