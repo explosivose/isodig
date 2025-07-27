@@ -5,6 +5,10 @@
 - add dig mode
   - audio
   - indicate block being dug (cracking sprite?)
+    - tried having the player class responsible for 'digging' effect
+    - doesnt feel right code gets messy
+    - instead: have player notify world that digging is starting or stopping somewhere. make separate class for digging effects which listens to digging signals
+    - the key_hold timer can be a repeater that emits start_dig periodically while key is held, then stop_dig when key is not held
 - add fill mode
   - as dig mode but fill instead
 - display player mode somewhere (dig, fill)
