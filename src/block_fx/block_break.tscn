@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://b7x7d76m3tvu6"]
 
-[ext_resource type="AudioStream" uid="uid://bl8xybrn2ngwb" path="res://assets/sfx/block_break.wav" id="1_r0t7u"]
+[ext_resource type="AudioStream" uid="uid://bl8xybrn2ngwb" path="res://assets/sfx/block_break.wav" id="1_0377t"]
 
 [node name="BlockBreak" type="Node2D"]
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("1_r0t7u")
+stream = ExtResource("1_0377t")

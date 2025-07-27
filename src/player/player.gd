@@ -1,6 +1,6 @@
 class_name Player extends Node2D
 
-const PLAYER_SCENE = preload("res://src/scenes/player.tscn")
+const PLAYER_SCENE = preload("res://src/player/player.tscn")
 
 enum MODE {
   DIG,

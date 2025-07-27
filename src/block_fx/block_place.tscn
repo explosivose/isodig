@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://btebcy3jksjvb"]
 
-[ext_resource type="AudioStream" uid="uid://gu2cjgfkghkl" path="res://assets/sfx/block_place.wav" id="1_onmk4"]
+[ext_resource type="AudioStream" uid="uid://gu2cjgfkghkl" path="res://assets/sfx/block_place.wav" id="1_y7x0h"]
 
 [node name="BlockPlace" type="Node2D"]
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("1_onmk4")
+stream = ExtResource("1_y7x0h")

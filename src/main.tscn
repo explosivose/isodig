@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=4 uid="uid://cadhfbyg7yjtx"]
 
-[ext_resource type="TileSet" uid="uid://dsmnmrl1af5i7" path="res://assets/tilesets/isometric-sandbox-tileset.tres" id="1_wtcfe"]
-[ext_resource type="Script" uid="uid://dx61r8vda2hbq" path="res://src/scripts/world.gd" id="2_0e48y"]
-[ext_resource type="PackedScene" uid="uid://sxhn55vut4w" path="res://src/scenes/world_layer.tscn" id="2_epypp"]
-[ext_resource type="PackedScene" uid="uid://ngokegebgyb7" path="res://src/scenes/player.tscn" id="3_q6r6c"]
+[ext_resource type="TileSet" uid="uid://dsmnmrl1af5i7" path="res://assets/tilesets/isometric-sandbox-tileset.tres" id="1_3cfgd"]
+[ext_resource type="PackedScene" uid="uid://sxhn55vut4w" path="res://src/world_layer/world_layer.tscn" id="2_fyndt"]
+[ext_resource type="PackedScene" uid="uid://ngokegebgyb7" path="res://src/player/player.tscn" id="3_kmhfv"]
+[ext_resource type="Script" uid="uid://dx61r8vda2hbq" path="res://src/world/world.gd" id="4_rlaii"]
 
 [node name="root" type="Node2D"]
 
@@ -14,18 +14,18 @@ visible = false
 modulate = Color(1, 0.431373, 1, 1)
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAD//wQAAAAAAAAAAAD+/wUAAAAAAAAAAAD+/wYAAAAAAAAAAAD9/wcAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAYAAAAAAAAAAAABAAcAAAAAAAAAAAD//wIAAAAAAAAAAAAAAAIAAAAAAAAAAAA=")
-tile_set = ExtResource("1_wtcfe")
+tile_set = ExtResource("1_3cfgd")
 
-[node name="WorldLayer2" parent="TileMap" instance=ExtResource("2_epypp")]
+[node name="WorldLayer2" parent="TileMap" instance=ExtResource("2_fyndt")]
 z_as_relative = false
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="TileMap"]
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAD///3/AAAAAAAAAAD///7/AAAAAAAAAAD+////AAAAAAAAAAD+/wAAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wIAAAAAAAAAAAAAAP7/AAAAAAAAAAAAAP//AAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAACAAIAAAAAAAAAAAD//wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD+/wIAAAAAAAAAAAD9/wMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAA=")
-tile_set = ExtResource("1_wtcfe")
+tile_set = ExtResource("1_3cfgd")
 
-[node name="Player" parent="TileMap" instance=ExtResource("3_q6r6c")]
+[node name="Player" parent="TileMap" instance=ExtResource("3_kmhfv")]
 y_sort_enabled = true
 
 [node name="World" type="Node2D" parent="."]
-script = ExtResource("2_0e48y")
+script = ExtResource("4_rlaii")

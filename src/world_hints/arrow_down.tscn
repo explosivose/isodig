@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://cn6yteopyowud"]
 
-[ext_resource type="Texture2D" uid="uid://b7e3t8de5xri6" path="res://assets/tilesets/isodig-world/isodig-world.png" id="1_3wi2r"]
+[ext_resource type="Texture2D" uid="uid://b7e3t8de5xri6" path="res://assets/tilesets/isodig-world/isodig-world.png" id="1_yddyf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h1d87"]
-atlas = ExtResource("1_3wi2r")
+atlas = ExtResource("1_yddyf")
 region = Rect2(16, 144, 32, 32)
 
 [node name="ArrowDown" type="Sprite2D"]

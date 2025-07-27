@@ -5,7 +5,7 @@ responsible for orchestrating render WorldLayers for a cohesive view
 class_name WorldView extends Node2D
 
 const TILE_VERTICAL = 16
-const WorldLayerScene = preload("res://src/scenes/world_layer.tscn")
+const WorldLayerScene = preload("res://src/world_layer/world_layer.tscn")
 
 var view_point: Vector3i
 var layers: Array = []

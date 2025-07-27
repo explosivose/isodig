@@ -1,9 +1,9 @@
 class_name WorldEdit extends Node
 
-const BLOCK_BREAK = preload("res://src/scenes/block_break.tscn")
+const BLOCK_BREAK = preload("res://src/block_fx/block_break.tscn")
 var _pool_block_break: NodePool = NodePool.new(BLOCK_BREAK, 10)
 
-const BLOCK_PLACE = preload("res://src/scenes/block_place.tscn")
+const BLOCK_PLACE = preload("res://src/block_fx/block_place.tscn")
 var _pool_block_place: NodePool = NodePool.new(BLOCK_PLACE, 10)
 
 var _world: World

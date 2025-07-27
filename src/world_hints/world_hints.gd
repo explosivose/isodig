@@ -3,10 +3,10 @@ Places hints in the world around a position based on navigation possibilities.
 """
 class_name WorldHints extends Node
 
-const HINT_UP = preload("res://src/scenes/arrow_up.tscn")
+const HINT_UP = preload("res://src/world_hints/arrow_up.tscn")
 var _pool_hints_up: NodePool = NodePool.new(HINT_UP, 10)
 
-const HINT_DOWN = preload("res://src/scenes/arrow_down.tscn")
+const HINT_DOWN = preload("res://src/world_hints/arrow_down.tscn")
 var _pool_hints_down: NodePool = NodePool.new(HINT_DOWN, 10)
 
 func refresh_hints(world_nav: WorldNav, world_position: Vector3i) -> void:

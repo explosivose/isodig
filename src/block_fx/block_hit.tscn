@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://t2skikd2riw4"]
 
-[ext_resource type="AudioStream" uid="uid://n3ckrv1ipikb" path="res://assets/sfx/block_hit.wav" id="1_64tle"]
-[ext_resource type="Texture2D" uid="uid://b7e3t8de5xri6" path="res://assets/tilesets/isodig-world/isodig-world.png" id="2_jiwmb"]
+[ext_resource type="AudioStream" uid="uid://n3ckrv1ipikb" path="res://assets/sfx/block_hit.wav" id="1_h43vl"]
+[ext_resource type="Texture2D" uid="uid://b7e3t8de5xri6" path="res://assets/tilesets/isodig-world/isodig-world.png" id="2_84x5f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4x23f"]
-atlas = ExtResource("2_jiwmb")
+atlas = ExtResource("2_84x5f")
 region = Rect2(112, 144, 32, 32)
 
 [node name="BlockHit" type="Node2D"]
 texture_filter = 1
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("1_64tle")
+stream = ExtResource("1_h43vl")
 autoplay = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

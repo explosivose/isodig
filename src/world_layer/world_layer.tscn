@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://sxhn55vut4w"]
+
+[ext_resource type="TileSet" uid="uid://dsmnmrl1af5i7" path="res://assets/tilesets/isometric-sandbox-tileset.tres" id="1_ip3wa"]
+[ext_resource type="Script" uid="uid://cgfs3niy64x51" path="res://src/world_layer/world_layer.gd" id="2_wjmiu"]
+
+[node name="WorldLayer2" type="TileMapLayer"]
+y_sort_enabled = true
+tile_set = ExtResource("1_ip3wa")
+script = ExtResource("2_wjmiu")
+metadata/_custom_type_script = "uid://cgfs3niy64x51"

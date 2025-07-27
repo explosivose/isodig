@@ -1,6 +1,6 @@
 class_name CameraControl extends Camera2D
 
-const CAMERA_SCENE = preload("res://src/scenes/follow_camera.tscn")
+const CAMERA_SCENE = preload("res://src/camera/follow_camera.tscn")
 static func create_camera(tgt: Player) -> CameraControl:
   var camera: CameraControl = CAMERA_SCENE.instantiate()
   camera.target = tgt
